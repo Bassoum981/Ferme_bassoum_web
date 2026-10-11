@@ -227,16 +227,72 @@ composer run dev
 
 ## Accès depuis un téléphone avec Ngrok
 
-Pour tester la version compilée depuis un téléphone, un seul tunnel Laravel suffit :
+Le projet supporte deux modes qui ne se gênent pas :
+
+- **développement local** : Vite sert les assets et fournit le rechargement à chaud ;
+- **tunnel Ngrok avec un seul tunnel** : Laravel sert les assets compilés depuis `public/build`.
+
+La détection du schéma HTTPS est dynamique : l'application conserve `APP_URL=http://localhost:8000` en local, mais force les URLs `asset()` et `@vite` en HTTPS lorsqu'une requête arrive via un tunnel HTTPS comme Ngrok. Cela évite les erreurs de contenu mixte sans modifier la configuration locale.
+
+### Mode local avec Vite
+
+Utiliser ce mode pour développer sur l'ordinateur :
 
 ```bash
+php artisan serve
+npm run dev
+```
+
+Ouvrir ensuite :
+
+```text
+http://127.0.0.1:8000
+```
+
+Le serveur Vite crée automatiquement `public/hot`. Laravel utilise alors l'URL Vite pour charger le CSS et le JavaScript.
+
+### Mode Ngrok avec un seul tunnel
+
+Utiliser ce mode pour accéder au site depuis un téléphone sans exposer Vite :
+
+```bash
+rm -f public/hot
+php artisan optimize:clear
+npm run build
 php artisan serve --host=0.0.0.0 --port=8000
+```
+
+Dans un deuxième terminal :
+
+```bash
 ngrok http 8000
 ```
 
-Utiliser ensuite l'URL HTTPS affichée par Ngrok sur le téléphone.
+Ouvrir l'URL HTTPS Ngrok sur le téléphone. Comme `public/hot` n'existe pas, `@vite` utilise `public/build/manifest.json`, et le CSS, le JavaScript et les images passent tous par le même tunnel Laravel.
 
-Pour utiliser le serveur Vite avec rechargement à chaud via HTTPS, il faut exposer Laravel et Vite séparément :
+Le passage d'un mode à l'autre ne casse pas le rendu :
+
+| Besoin | Commande principale | Source des assets |
+| --- | --- | --- |
+| Développement local | `npm run dev` | Serveur Vite |
+| Test téléphone / Ngrok | `npm run build` | `public/build` via Laravel |
+
+Après un retour du mode Ngrok au mode local, relancer simplement :
+
+```bash
+npm run dev
+```
+
+Vite recréera `public/hot`. Avant de repasser au tunnel avec un seul port, arrêter Vite puis exécuter :
+
+```bash
+rm -f public/hot
+npm run build
+```
+
+### Ngrok avec rechargement à chaud
+
+Ce mode est optionnel et nécessite deux tunnels :
 
 ```bash
 php artisan serve --host=0.0.0.0 --port=8000
@@ -245,7 +301,7 @@ ngrok http 8000
 ngrok http 5173
 ```
 
-Dans ce cas, renseigner dans `.env` l'hôte public du tunnel Vite :
+Dans ce cas, renseigner l'hôte public du tunnel Vite dans `.env` :
 
 ```env
 NGROK_HOST=votre-hote-vite.ngrok-free.app
@@ -463,4 +519,3 @@ Vérifier :
 ## Licence
 
 Ce projet est une application vitrine privée développée pour la Ferme Bassoum. Le framework Laravel et ses dépendances restent soumis à leurs licences respectives.
-
