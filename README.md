@@ -1,58 +1,466 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Ferme Bassoum
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Site vitrine de la **Ferme Bassoum**, une exploitation située à Bamako, au Mali, spécialisée dans l'élevage avicole, l'incubation et la production de produits fermiers.
 
-## About Laravel
+Le site présente l'histoire de la ferme, ses produits, ses animaux et permet aux visiteurs de contacter directement l'équipe par formulaire, e-mail ou WhatsApp.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Fonctionnalités
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Page d'accueil inspirée de la maquette fournie :
+  - hero avec image de la ferme ;
+  - logo et identité visuelle ;
+  - présentation des engagements ;
+  - aperçu des produits et des animaux.
+- Page **Notre ferme** :
+  - histoire et vision ;
+  - excellence avicole ;
+  - incubation et élevage ;
+  - suivi sanitaire et nutrition ;
+  - traçabilité et rigueur de gestion.
+- Page **Nos produits** :
+  - œufs de caille ;
+  - viande de caille ;
+  - sujets d'élevage : cailles, pintades et poulets.
+- Page **Nos animaux** :
+  - cailles ;
+  - moutons ;
+  - bovins ;
+  - présentation du savoir-faire avicole.
+- Page **Contact** :
+  - formulaire sécurisé avec validation Laravel ;
+  - envoi par e-mail via SMTP Gmail ;
+  - bouton WhatsApp avec message prérempli ;
+  - coordonnées de la ferme à Bamako.
+- Navigation responsive avec menu mobile dépliant.
+- Design personnalisé avec Tailwind CSS 4 et CSS complémentaire.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Stack technique
 
-## Learning Laravel
+| Technologie | Version / usage |
+| --- | --- |
+| PHP | `^8.3` |
+| Laravel | `^13.17` |
+| Laravel Vite Plugin | `^3.1` |
+| Tailwind CSS | `^4.0` |
+| Vite | `^8.0` |
+| Base de données par défaut | SQLite |
+| E-mails | SMTP Gmail |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Le projet peut être adapté à MySQL en modifiant les variables `DB_*` du fichier `.env`.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Prérequis
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Installer les outils suivants :
 
-## Agentic Development
+- PHP 8.3 ou supérieur ;
+- Composer ;
+- Node.js et npm ;
+- SQLite pour la configuration par défaut, ou MySQL si nécessaire ;
+- une adresse Gmail avec la validation en deux étapes pour l'envoi des e-mails.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Vérifier les versions installées :
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+php -v
+composer --version
+node -v
+npm -v
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Installation
 
-## Contributing
+Depuis le dossier du projet :
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+cd /Users/ibassoum/Dev/php_laravel/ferme-bassoum
+```
 
-## Code of Conduct
+Installer les dépendances PHP :
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+composer install
+```
 
-## Security Vulnerabilities
+Créer le fichier d'environnement :
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+cp .env.example .env
+```
 
-## License
+Générer la clé Laravel :
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan key:generate
+```
+
+Installer les dépendances JavaScript :
+
+```bash
+npm install
+```
+
+Créer la base SQLite et exécuter les migrations :
+
+```bash
+touch database/database.sqlite
+php artisan migrate
+```
+
+Compiler les assets :
+
+```bash
+npm run build
+```
+
+## Configuration `.env`
+
+Configuration minimale pour un usage local :
+
+```env
+APP_NAME="Ferme Bassoum"
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=sqlite
+
+MAIL_MAILER=log
+```
+
+Avec `MAIL_MAILER=log`, les e-mails ne sont pas envoyés. Ils sont écrits dans :
+
+```text
+storage/logs/laravel.log
+```
+
+Après toute modification importante du fichier `.env`, nettoyer le cache :
+
+```bash
+php artisan optimize:clear
+```
+
+## Configuration Gmail
+
+Le formulaire de contact utilise SMTP Gmail. Pour recevoir les messages sur :
+
+```text
+ibrahimbassoum981@gmail.com
+```
+
+Configurer `.env` ainsi :
+
+```env
+MAIL_MAILER=smtp
+MAIL_SCHEME=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=ibrahimbassoum981@gmail.com
+MAIL_PASSWORD="mot-de-passe-d-application-google"
+MAIL_FROM_ADDRESS=ibrahimbassoum981@gmail.com
+MAIL_FROM_NAME="Ferme Bassoum"
+CONTACT_EMAIL=ibrahimbassoum981@gmail.com
+```
+
+### Mot de passe d'application Google
+
+Le mot de passe habituel Gmail ne fonctionne pas avec cette configuration.
+
+1. Activer la validation en deux étapes sur le compte Google.
+2. Ouvrir [Google App Passwords](https://myaccount.google.com/apppasswords).
+3. Créer un mot de passe d'application, par exemple `Ferme Bassoum`.
+4. Copier le code généré dans `MAIL_PASSWORD`.
+
+Le mot de passe doit être placé entre guillemets s'il contient des espaces :
+
+```env
+MAIL_PASSWORD="xxxx xxxx xxxx xxxx"
+```
+
+Ne jamais committer `.env` et ne jamais publier ce mot de passe. En cas d'exposition, révoquer le mot de passe d'application depuis le compte Google et en créer un nouveau.
+
+Après la configuration :
+
+```bash
+php artisan optimize:clear
+php artisan config:cache
+```
+
+## Lancer l'application en local
+
+### Méthode simple avec les assets compilés
+
+Terminal 1 :
+
+```bash
+php artisan serve --host=127.0.0.1 --port=8000
+```
+
+Ouvrir :
+
+```text
+http://127.0.0.1:8000
+```
+
+### Développement avec Vite
+
+Terminal 1 :
+
+```bash
+php artisan serve
+```
+
+Terminal 2 :
+
+```bash
+npm run dev
+```
+
+Vite recharge automatiquement les fichiers CSS, JavaScript et Blade pendant le développement.
+
+### Commande Laravel combinée
+
+Le script Laravel prévu par le projet peut aussi lancer les processus de développement :
+
+```bash
+composer run dev
+```
+
+## Accès depuis un téléphone avec Ngrok
+
+Pour tester la version compilée depuis un téléphone, un seul tunnel Laravel suffit :
+
+```bash
+php artisan serve --host=0.0.0.0 --port=8000
+ngrok http 8000
+```
+
+Utiliser ensuite l'URL HTTPS affichée par Ngrok sur le téléphone.
+
+Pour utiliser le serveur Vite avec rechargement à chaud via HTTPS, il faut exposer Laravel et Vite séparément :
+
+```bash
+php artisan serve --host=0.0.0.0 --port=8000
+npm run dev -- --host 0.0.0.0
+ngrok http 8000
+ngrok http 5173
+```
+
+Dans ce cas, renseigner dans `.env` l'hôte public du tunnel Vite :
+
+```env
+NGROK_HOST=votre-hote-vite.ngrok-free.app
+VITE_DEV_SERVER_URL=https://votre-hote-vite.ngrok-free.app
+```
+
+La configuration correspondante se trouve dans `vite.config.js`.
+
+## Routes disponibles
+
+| Méthode | URL | Nom | Description |
+| --- | --- | --- | --- |
+| `GET` | `/` | — | Page d'accueil |
+| `GET` | `/notre-ferme` | `ferme` | Histoire et vision |
+| `GET` | `/nos-produits` | `produits` | Produits et sujets d'élevage |
+| `GET` | `/nos-animaux` | `animaux` | Animaux de la ferme |
+| `GET` | `/contact` | `contact` | Formulaire de contact |
+| `POST` | `/contact` | `contact.store` | Traitement du formulaire |
+
+## Organisation du projet
+
+```text
+app/
+├── Http/Controllers/
+│   ├── ContactController.php
+│   └── Controller.php
+└── Providers/
+
+public/
+├── images/
+│   ├── bovins.jpg
+│   ├── hero-ferme.png
+│   ├── logo-ferme.png
+│   ├── moutons.jpg
+│   ├── oeufs-caille.webp
+│   └── viande-caille.jpg
+└── build/
+
+resources/
+├── css/app.css
+├── js/app.js
+└── views/
+    ├── welcome.blade.php
+    ├── ferme.blade.php
+    ├── produits.blade.php
+    ├── animaux.blade.php
+    └── contact.blade.php
+
+routes/
+└── web.php
+```
+
+## Images et assets
+
+Les images originales sont conservées dans le dossier `assets/` puis copiées dans `public/images/` pour être servies par Laravel.
+
+Pour remplacer une image :
+
+1. déposer le nouveau fichier dans `assets/` ;
+2. le copier dans `public/images/` ;
+3. conserver le chemin utilisé dans les vues Blade ;
+4. relancer `npm run build` si nécessaire.
+
+Les images utilisées actuellement sont :
+
+- `hero-ferme.png` : image de la bannière principale ;
+- `logo-ferme.png` : logo de la ferme ;
+- `oeufs-caille.webp` : œufs de caille ;
+- `viande-caille.jpg` : viande de caille ;
+- `moutons.jpg` : visuel utilisé pour la catégorie moutons ;
+- `bovins.jpg` : bovins.
+
+## Base de données
+
+La version actuelle du site vitrine ne dépend pas encore de données dynamiques pour les produits ou les animaux. Les contenus sont définis dans les vues Blade.
+
+### Utiliser MySQL
+
+Créer une base de données MySQL, puis remplacer la configuration SQLite dans `.env` :
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ferme_bassoum
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Puis lancer :
+
+```bash
+php artisan optimize:clear
+php artisan migrate
+```
+
+La connexion MySQL doit être disponible avant l'exécution des migrations.
+
+## Validation et maintenance
+
+Vérifier les routes :
+
+```bash
+php artisan route:list
+```
+
+Vérifier les vues Blade :
+
+```bash
+php artisan view:cache
+```
+
+Compiler les assets :
+
+```bash
+npm run build
+```
+
+Lancer les tests Laravel :
+
+```bash
+php artisan test
+```
+
+Nettoyer tous les caches Laravel :
+
+```bash
+php artisan optimize:clear
+```
+
+Formater le code PHP avec Laravel Pint :
+
+```bash
+./vendor/bin/pint
+```
+
+## Déploiement
+
+Sur un serveur de production :
+
+```bash
+composer install --no-dev --optimize-autoloader
+npm ci
+npm run build
+php artisan migrate --force
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+Configurer ensuite :
+
+- `APP_ENV=production` ;
+- `APP_DEBUG=false` ;
+- une valeur `APP_URL` HTTPS ;
+- les identifiants SMTP Gmail ou un service e-mail de production ;
+- les permissions d'écriture sur `storage/` et `bootstrap/cache/`.
+
+Ne jamais inclure `.env`, les mots de passe SMTP ou les clés privées dans le dépôt Git.
+
+## Dépannage
+
+### `The environment file is invalid`
+
+Une valeur `.env` contient probablement un espace non protégé. Entourer la valeur de guillemets :
+
+```env
+MAIL_PASSWORD="xxxx xxxx xxxx xxxx"
+```
+
+Puis exécuter :
+
+```bash
+php artisan optimize:clear
+```
+
+### Le schéma `tls` n'est pas pris en charge
+
+Avec Gmail sur le port `587`, utiliser :
+
+```env
+MAIL_SCHEME=smtp
+MAIL_PORT=587
+```
+
+Ne pas utiliser `MAIL_SCHEME=tls`.
+
+### Les styles Tailwind ne s'affichent pas
+
+Recompiler les assets :
+
+```bash
+npm run build
+```
+
+En développement, vérifier que Vite tourne :
+
+```bash
+npm run dev
+```
+
+Si le site est ouvert via Ngrok, consulter la section [Accès depuis un téléphone avec Ngrok](#accès-depuis-un-téléphone-avec-ngrok).
+
+### Les e-mails ne sont pas reçus
+
+Vérifier :
+
+1. que `MAIL_MAILER=smtp` est configuré ;
+2. que `MAIL_USERNAME` correspond à l'adresse Gmail ;
+3. que `MAIL_PASSWORD` est un mot de passe d'application Google ;
+4. que `MAIL_SCHEME=smtp` et `MAIL_PORT=587` sont utilisés ;
+5. que le cache a été nettoyé avec `php artisan optimize:clear` ;
+6. les logs dans `storage/logs/laravel.log`.
+
+## Licence
+
+Ce projet est une application vitrine privée développée pour la Ferme Bassoum. Le framework Laravel et ses dépendances restent soumis à leurs licences respectives.
+
