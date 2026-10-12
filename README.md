@@ -462,6 +462,46 @@ Configurer ensuite :
 
 Ne jamais inclure `.env`, les mots de passe SMTP ou les clés privées dans le dépôt Git.
 
+### Déployer sur Render
+
+Le dépôt contient les fichiers nécessaires à un déploiement Render :
+
+- `Dockerfile` : image PHP 8.4 avec Apache, PostgreSQL et les assets Vite compilés ;
+- `docker/start.sh` : adapte Apache au port Render, exécute les migrations et optimise Laravel ;
+- `render.yaml` : crée le service web et une base PostgreSQL Render ;
+- `.dockerignore` : exclut les secrets, dépendances locales et fichiers temporaires.
+
+1. Pousser le projet sur un dépôt GitHub.
+2. Dans Render, choisir **New > Blueprint** et sélectionner le dépôt.
+3. Render détectera `render.yaml` et créera le service web ainsi que PostgreSQL.
+4. Dans les variables du service, renseigner :
+   - `APP_URL` avec l'URL HTTPS Render du site ;
+   - `MAIL_USERNAME` avec l'adresse Gmail d'envoi ;
+   - `MAIL_PASSWORD` avec un mot de passe d'application Google ;
+   - `MAIL_FROM_ADDRESS` et `CONTACT_EMAIL` avec l'adresse de réception.
+5. Lancer le déploiement. Le script de démarrage exécute automatiquement `php artisan migrate --force` puis `php artisan optimize`.
+
+`APP_KEY` est générée par Render. Ne pas copier le fichier `.env` local dans Render et ne jamais utiliser le mot de passe Gmail principal. Pour un environnement payant, remplacer `plan: free` dans `render.yaml` par le plan Render souhaité avant de créer les services.
+
+#### Tester l'image localement
+
+Construire et démarrer l'image :
+
+```bash
+docker build -t ferme-bassoum .
+docker run --rm -p 10000:10000 \
+  -e APP_KEY="base64:replace-with-a-real-key" \
+  -e APP_ENV=production \
+  -e APP_DEBUG=false \
+  -e APP_URL=http://localhost:10000 \
+  -e DB_CONNECTION=sqlite \
+  -e DB_DATABASE=/var/www/html/database/database.sqlite \
+  ferme-bassoum \
+  sh -c 'touch /var/www/html/database/database.sqlite && chown www-data:www-data /var/www/html/database/database.sqlite && exec /usr/local/bin/render-start'
+```
+
+Puis ouvrir <http://localhost:10000>. En production Render, `DB_URL` est injectée automatiquement depuis PostgreSQL.
+
 ## Dépannage
 
 ### `The environment file is invalid`

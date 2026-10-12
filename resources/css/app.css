@@ -17,7 +17,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; color: var(--ink); background: var(--cream); font-family: var(--font-sans); }
+body { margin: 0; color: var(--ink); background: var(--cream); font-family: var(--font-sans); overflow-x: hidden; }
 .page-shell { width: min(1340px, calc(100% - 96px)); margin: 0 auto; }
 .site-header { height: 86px; background: rgba(250, 247, 234, .97); position: relative; z-index: 10; }
 .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
@@ -32,8 +32,10 @@ body { margin: 0; color: var(--ink); background: var(--cream); font-family: var(
 .button-dark:hover { background: #15532f; }
 .button-outline { border: 1px solid var(--forest); }
 .nav-contact { border-radius: 14px; padding: 12px 22px; }
-.phone-icon { font-size: 17px; }
+.phone-icon { display: inline-flex; }
+.phone-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .menu-toggle { display: none; color: var(--forest); font-size: 24px; }
+.menu-toggle span { display: block; width: 22px; height: 2px; margin: 4px 0; background: currentColor; border-radius: 2px; }
 .mobile-nav { display: none; }
 .hero { min-height: 440px; background-image: url('/images/hero-ferme.png'); background-position: center; background-size: cover; position: relative; }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(248, 239, 207, .96) 0%, rgba(248, 239, 207, .72) 36%, rgba(248, 239, 207, .05) 75%); }
@@ -49,10 +51,24 @@ h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; }
 .values-strip { background: var(--deep-forest); color: white; }
 .values-grid { min-height: 91px; display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; gap: 26px; }
 .value-item { display: flex; align-items: center; gap: 18px; }
+.value-item > div { min-width: 0; }
 .value-icon { width: 56px; height: 56px; border: 2px solid #f0e5ba; border-radius: 50%; display: grid; place-items: center; color: #f0e5ba; font-size: 26px; flex: 0 0 auto; }
+.value-icon svg { width: 27px; height: 27px; }
 .value-item strong, .value-item small { display: block; }
 .value-item strong { font-size: 15px; }
 .value-item small { font-size: 12px; margin-top: 4px; color: #f8f5e9; }
+.home-navigation { padding: 58px 0 62px; background: #efe7d0; }
+.home-navigation-heading { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 28px; }
+.home-navigation-heading h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; margin: 0; }
+.home-navigation-heading > p { max-width: 350px; font-size: 14px; line-height: 1.6; margin: 0 0 3px; }
+.home-navigation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.home-navigation-card { display: grid; grid-template-columns: auto 1fr auto; align-items: start; gap: 16px; padding: 23px 22px; border: 1px solid #d5c49a; border-radius: 14px; background: #f9f4e8; transition: transform .2s, box-shadow .2s, border-color .2s; }
+.home-navigation-card:hover { transform: translateY(-4px); border-color: var(--forest); box-shadow: 0 10px 22px #5d4a2414; }
+.home-navigation-icon { width: 42px; height: 42px; display: grid; place-items: center; color: var(--gold); border: 1px solid #cfbe91; border-radius: 50%; }
+.home-navigation-icon svg { width: 23px; height: 23px; }
+.home-navigation-card h3 { font-size: 22px; margin: 0 0 5px; }
+.home-navigation-card p { font-size: 13px; line-height: 1.45; margin: 0; }
+.home-navigation-card strong { color: var(--forest); font-size: 22px; }
 .intro-section { background: #f7f1df; padding: 35px 0 31px; }
 .intro-grid { display: grid; grid-template-columns: 1.08fr .85fr 1.55fr; gap: 40px; align-items: center; }
 .section-kicker { display: flex; align-items: center; gap: 18px; font-size: 12px; letter-spacing: .2em; margin: 0 0 11px; }
@@ -81,6 +97,10 @@ h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; }
 .footer-inner { min-height: 59px; display: flex; justify-content: space-between; align-items: center; }
 .footer-inner a { color: white; }
 .footer-leaves { color: var(--gold); font-size: 25px; }
+.footer-contact-line { display: inline-flex; align-items: center; gap: 8px; }
+.footer-contact-details { display: grid; gap: 8px; }
+.footer-icon { display: inline-flex; flex: 0 0 auto; }
+.footer-icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .socials { font-size: 20px; }
 .inner-hero { background: linear-gradient(90deg, rgba(247, 241, 223, .98), rgba(247, 241, 223, .8)), url('/images/hero-ferme.png') center/cover; padding: 78px 0 72px; }
 .inner-hero h1 { font-size: clamp(38px, 5vw, 66px); line-height: 1.04; margin: 12px 0 15px; max-width: 800px; }
@@ -125,11 +145,15 @@ h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; }
 .contact-details > p:not(.section-kicker) { max-width: 480px; line-height: 1.7; margin: 0 0 28px; }
 .contact-items { display: grid; gap: 19px; margin-bottom: 29px; }
 .contact-items > * { display: flex; align-items: center; gap: 17px; }
-.contact-items > * > span { width: 42px; height: 42px; border: 1px solid var(--forest); border-radius: 50%; display: grid; place-items: center; color: var(--forest); font-size: 19px; }
+.contact-items > * > span { width: 42px; height: 42px; border: 1px solid var(--forest); border-radius: 50%; display: grid; place-items: center; color: var(--forest); flex: 0 0 auto; }
+.contact-items svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .contact-items strong, .contact-items small { display: block; }
 .contact-items strong { font-size: 14px; }
 .contact-items small { font-size: 13px; margin-top: 3px; }
-.whatsapp-button { display: inline-flex; align-items: center; padding: 13px 21px; border-radius: 12px; background: #208c4b; color: white; font-weight: 600; }
+.whatsapp-button { display: inline-flex; align-items: center; gap: 9px; padding: 13px 21px; border-radius: 12px; background: #208c4b; color: white; font-weight: 600; }
+.whatsapp-button svg { width: 19px; height: 19px; fill: currentColor; }
+.facebook-button { display: inline-flex; align-items: center; gap: 9px; margin-top: 12px; padding: 13px 21px; border-radius: 12px; background: #1877f2; color: white; font-weight: 600; }
+.facebook-button svg { width: 19px; height: 19px; fill: currentColor; }
 .contact-form-card { background: #f9f4e8; border-radius: 18px; padding: 32px 35px; box-shadow: 0 10px 30px #5d4a2414; }
 .contact-form-card h2 { font-family: Georgia, serif; font-size: 30px; margin: 0 0 22px; }
 .contact-form-card form { display: grid; gap: 8px; }
@@ -155,6 +179,18 @@ h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; }
 .product-label { display: inline-block; color: #8f7526; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
 .large-product-content h2 { font-size: 32px; margin: 8px 0 12px; }
 .large-product-content p { font-size: 15px; line-height: 1.65; margin: 0 0 22px; }
+.large-product-content .button { max-width: 100%; }
+.product-whatsapp { gap: 10px; background: #208c4b; font-size: 13px; padding: 12px 17px; }
+.product-whatsapp:hover { background: #176d39; }
+.whatsapp-mark { width: 19px; height: 19px; fill: currentColor; }
+.livestock-card { grid-column: 1 / -1; display: grid; grid-template-columns: 1.15fr 1fr; }
+.livestock-carousel { min-height: 310px; overflow: hidden; background: #e6dcc0; }
+.livestock-track { height: 100%; display: flex; width: 200%; animation: livestock-slide 9s ease-in-out infinite; }
+.livestock-track figure { width: 50%; height: 100%; margin: 0; position: relative; }
+.livestock-track img { width: 100%; height: 100%; object-fit: cover; }
+.livestock-track figcaption { position: absolute; left: 18px; bottom: 16px; padding: 7px 13px; border-radius: 999px; background: #092c19dd; color: white; font-size: 13px; }
+.livestock-card:hover .livestock-track { animation-play-state: paused; }
+@keyframes livestock-slide { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 .subjects-section { padding: 78px 0; background: #efe7d0; }
 .subjects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
 .subject-list { border-top: 1px solid #cfbe91; }
@@ -199,7 +235,7 @@ h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; }
     .brand { margin-top: 4px; }
     .main-nav { display: none; }
     .menu-toggle { display: block; border: 1px solid #d8cba7; border-radius: 10px; background: #f7f1df; cursor: pointer; padding: 7px 10px; position: relative; z-index: 12; margin-right: 2px; line-height: 1; }
-    .mobile-nav { display: flex; position: absolute; top: 82px; left: 16px; right: 16px; flex-direction: column; gap: 0; padding: 9px 18px 13px; background: #faf7ea; border: 1px solid #e1d7b9; border-radius: 0 0 16px 16px; box-shadow: 0 14px 28px #092c1930; transform: translateY(-12px); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+    .mobile-nav { display: flex; position: absolute; top: 76px; left: auto; right: 16px; width: min(232px, calc(100vw - 32px)); flex-direction: column; gap: 0; padding: 9px 18px 13px; background: #faf7ea; border: 1px solid #e1d7b9; border-radius: 12px; box-shadow: 0 14px 28px #092c1930; transform: translateY(-12px); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
     .site-header.menu-open .mobile-nav { transform: translateY(0); opacity: 1; pointer-events: auto; }
     .mobile-nav a { padding: 13px 4px; border-bottom: 1px solid #e1d7b9; font-weight: 600; }
     .mobile-nav a:last-child { border-bottom: 0; }
@@ -216,7 +252,13 @@ h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; }
     .value-icon { width: 42px; height: 42px; font-size: 19px; }
     .value-item strong { font-size: 12px; }
     .value-item small { font-size: 10px; }
+    .value-item strong, .value-item small { overflow-wrap: anywhere; }
     .intro-grid { grid-template-columns: 1fr; gap: 28px; }
+    .home-navigation { padding: 45px 0; }
+    .home-navigation-heading { display: block; margin-bottom: 22px; }
+    .home-navigation-heading > p { margin-top: 14px; }
+    .home-navigation-grid { grid-template-columns: 1fr; gap: 12px; }
+    .home-navigation-card { padding: 18px; }
     .intro-logo { order: 2; }
     .intro-copy { order: 1; }
     .feature-columns { order: 3; grid-template-columns: 1fr; gap: 30px; }
@@ -233,6 +275,9 @@ h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; }
     .product-showcase, .subjects-section { padding: 30px 0 54px; }
     .large-product-card > img { height: 220px; }
     .large-product-content { padding: 22px; }
+    .product-whatsapp { width: 100%; justify-content: center; text-align: center; }
+    .livestock-card { display: block; }
+    .livestock-carousel { min-height: 220px; }
     .animal-cards, .poultry-grid { grid-template-columns: 1fr; }
     .animals-intro { padding-top: 54px; }
     .animal-showcase, .poultry-section { padding: 30px 0 54px; }
@@ -243,4 +288,27 @@ h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; }
     .contact-main { padding: 54px 0; }
     .contact-grid { grid-template-columns: 1fr; gap: 42px; }
     .contact-form-card { padding: 24px 20px; }
+}
+@media (max-width: 480px) {
+    .page-shell { width: calc(100% - 28px); }
+    .hero h1 { font-size: 43px; }
+    .hero h2 { font-size: 20px; line-height: 1.2; }
+    .hero-text { font-size: 14px; }
+    .hero .button { width: 100%; justify-content: center; }
+    .values-grid { grid-template-columns: 1fr; gap: 12px; padding: 16px 0; }
+    .value-item { gap: 12px; }
+    .value-item small { font-size: 11px; }
+    .home-navigation-card { grid-template-columns: auto 1fr auto; gap: 11px; }
+    .home-navigation-card h3 { font-size: 20px; }
+    .home-navigation-card p { font-size: 12px; }
+    .section-kicker { letter-spacing: .12em; gap: 10px; }
+    .section-kicker span { width: 34px; flex: 0 0 auto; }
+    .inner-hero h1 { font-size: 36px; }
+    .inner-hero > .page-shell > p:last-child { font-size: 15px; line-height: 1.5; }
+    .farm-heading h2, .management-grid h2, .section-intro h2, .contact-footer h2 { font-size: 32px; }
+    .large-product-content h2, .animal-card h2 { font-size: 28px; }
+    .animal-list { gap: 9px; justify-content: space-between; }
+    .animal-list img { width: 64px; height: 64px; }
+    .footer-inner { display: grid; grid-template-columns: 1fr; }
+    .footer-inner a { overflow-wrap: anywhere; }
 }

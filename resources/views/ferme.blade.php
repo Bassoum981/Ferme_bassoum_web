@@ -20,8 +20,8 @@
                     <a href="{{ route('animaux') }}">Nos animaux</a>
                     <a href="{{ route('contact') }}">Contact</a>
                 </nav>
-                <a class="button button-dark nav-contact" href="{{ route('contact') }}"><span class="phone-icon">☎</span> Nous contacter</a>
-                <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+                <a class="button button-dark nav-contact" href="{{ route('contact') }}"><span class="phone-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7.2 3.5 9.8 3a1.5 1.5 0 0 1 1.7 1l1 3a1.5 1.5 0 0 1-.5 1.6l-1.5 1.2a12.5 12.5 0 0 0 4.7 4.7l1.2-1.5a1.5 1.5 0 0 1 1.6-.5l3 1a1.5 1.5 0 0 1 1 1.7l-.5 2.6a1.8 1.8 0 0 1-2 1.4A16.5 16.5 0 0 1 4.8 5.5a1.8 1.8 0 0 1 1.4-2Z"/></svg></span> Nous contacter</a>
+                <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
                 <div class="mobile-nav" aria-label="Navigation mobile">
                     <a href="{{ url('/') }}">Accueil</a>
                     <a class="active" href="{{ route('ferme') }}">Notre ferme</a>
@@ -119,7 +119,7 @@
         <footer id="contact" class="site-footer">
             <div class="page-shell contact-footer">
                 <div><p class="section-kicker">CONTACTEZ-NOUS <span></span></p><h2>Votre partenaire de confiance</h2></div>
-                <div><p>Professionnel à la recherche de sujets vigoureux ou particulier exigeant sur la qualité de son alimentation ? La Ferme Bassoum est à votre écoute.</p><p>⌖ Bamako, Mali<br>☎ <a href="tel:+22394184125">+223 94 18 41 25</a> · <a href="tel:+22350158093">+223 50 15 80 93</a><br>✉ <a href="mailto:ibrahimbassoum981@gmail.com">ibrahimbassoum981@gmail.com</a></p></div>
+                <div><p>Professionnel à la recherche de sujets vigoureux ou particulier exigeant sur la qualité de son alimentation ? La Ferme Bassoum est à votre écoute.</p><p class="footer-contact-details"><span class="footer-contact-line"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg></span> Bamako, Mali</span><span class="footer-contact-line"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7.2 3.5 9.8 3a1.5 1.5 0 0 1 1.7 1l1 3a1.5 1.5 0 0 1-.5 1.6l-1.5 1.2a12.5 12.5 0 0 0 4.7 4.7l1.2-1.5a1.5 1.5 0 0 1 1.6-.5l3 1a1.5 1.5 0 0 1 1 1.7l-.5 2.6a1.8 1.8 0 0 1-2 1.4A16.5 16.5 0 0 1 4.8 5.5a1.8 1.8 0 0 1 1.4-2Z"/></svg></span> <a href="tel:+22394184125">+223 94 18 41 25</a> · <a href="tel:+22350158093">+223 50 15 80 93</a></span><span class="footer-contact-line"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span> <a href="mailto:ibrahimbassoum981@gmail.com">ibrahimbassoum981@gmail.com</a></span><span class="footer-contact-line"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3c-3.3 0-5 1.9-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.7.3-1 1-1Z"/></svg></span> <a href="https://www.facebook.com/share/1De6Fwm6js/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Facebook</a></span></p></div>
             </div>
         </footer>
     </body>
