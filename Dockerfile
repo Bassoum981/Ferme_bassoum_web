@@ -26,13 +26,11 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        libpq-dev \
         libzip-dev \
         unzip \
     && docker-php-ext-install \
         bcmath \
         opcache \
-        pdo_pgsql \
         zip \
     && a2enmod rewrite \
     && sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" \

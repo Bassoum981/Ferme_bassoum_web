@@ -2,7 +2,7 @@
 
 Site vitrine de la **Ferme Bassoum**, une exploitation située à Bamako, au Mali, spécialisée dans l'élevage avicole, l'incubation et la production de produits fermiers.
 
-Le site présente l'histoire de la ferme, ses produits, ses animaux et permet aux visiteurs de contacter directement l'équipe par formulaire, e-mail ou WhatsApp.
+Le site présente l'histoire de la ferme, ses produits, ses animaux et permet aux visiteurs de contacter directement l'équipe par téléphone, e-mail, WhatsApp ou Facebook.
 
 ## Fonctionnalités
 
@@ -27,10 +27,8 @@ Le site présente l'histoire de la ferme, ses produits, ses animaux et permet au
   - bovins ;
   - présentation du savoir-faire avicole.
 - Page **Contact** :
-  - formulaire sécurisé avec validation Laravel ;
-  - envoi par e-mail via SMTP Gmail ;
   - bouton WhatsApp avec message prérempli ;
-  - coordonnées de la ferme à Bamako.
+  - téléphone, e-mail, Facebook et coordonnées de la ferme à Bamako.
 - Navigation responsive avec menu mobile dépliant.
 - Design personnalisé avec Tailwind CSS 4 et CSS complémentaire.
 
@@ -43,10 +41,8 @@ Le site présente l'histoire de la ferme, ses produits, ses animaux et permet au
 | Laravel Vite Plugin | `^3.1` |
 | Tailwind CSS | `^4.0` |
 | Vite | `^8.0` |
-| Base de données par défaut | SQLite |
-| E-mails | SMTP Gmail |
-
-Le projet peut être adapté à MySQL en modifiant les variables `DB_*` du fichier `.env`.
+| Données persistantes | Aucune |
+| Contact | WhatsApp, téléphone, e-mail et Facebook |
 
 ## Prérequis
 
@@ -55,8 +51,7 @@ Installer les outils suivants :
 - PHP 8.3 ou supérieur ;
 - Composer ;
 - Node.js et npm ;
-- SQLite pour la configuration par défaut, ou MySQL si nécessaire ;
-- une adresse Gmail avec la validation en deux étapes pour l'envoi des e-mails.
+- un compte Render pour le déploiement gratuit.
 
 Vérifier les versions installées :
 
@@ -139,44 +134,9 @@ Après toute modification importante du fichier `.env`, nettoyer le cache :
 php artisan optimize:clear
 ```
 
-## Configuration Gmail
+## Contact
 
-Le formulaire de contact utilise SMTP Gmail. Pour recevoir les messages sur :
-
-```text
-ibrahimbassoum981@gmail.com
-```
-
-Configurer `.env` ainsi :
-
-```env
-MAIL_MAILER=smtp
-MAIL_SCHEME=smtp
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USERNAME=ibrahimbassoum981@gmail.com
-MAIL_PASSWORD="mot-de-passe-d-application-google"
-MAIL_FROM_ADDRESS=ibrahimbassoum981@gmail.com
-MAIL_FROM_NAME="Ferme Bassoum"
-CONTACT_EMAIL=ibrahimbassoum981@gmail.com
-```
-
-### Mot de passe d'application Google
-
-Le mot de passe habituel Gmail ne fonctionne pas avec cette configuration.
-
-1. Activer la validation en deux étapes sur le compte Google.
-2. Ouvrir [Google App Passwords](https://myaccount.google.com/apppasswords).
-3. Créer un mot de passe d'application, par exemple `Ferme Bassoum`.
-4. Copier le code généré dans `MAIL_PASSWORD`.
-
-Le mot de passe doit être placé entre guillemets s'il contient des espaces :
-
-```env
-MAIL_PASSWORD="xxxx xxxx xxxx xxxx"
-```
-
-Ne jamais committer `.env` et ne jamais publier ce mot de passe. En cas d'exposition, révoquer le mot de passe d'application depuis le compte Google et en créer un nouveau.
+Le site n'envoie aucun e-mail côté serveur. Les visiteurs peuvent appeler la ferme, écrire directement à l'adresse e-mail affichée, ouvrir WhatsApp ou consulter la page Facebook. Cette approche ne nécessite ni port SMTP, ni service de messagerie, ni stockage de formulaire.
 
 Après la configuration :
 
@@ -318,15 +278,13 @@ La configuration correspondante se trouve dans `vite.config.js`.
 | `GET` | `/notre-ferme` | `ferme` | Histoire et vision |
 | `GET` | `/nos-produits` | `produits` | Produits et sujets d'élevage |
 | `GET` | `/nos-animaux` | `animaux` | Animaux de la ferme |
-| `GET` | `/contact` | `contact` | Formulaire de contact |
-| `POST` | `/contact` | `contact.store` | Traitement du formulaire |
+| `GET` | `/contact` | `contact` | Coordonnées et liens de contact |
 
 ## Organisation du projet
 
 ```text
 app/
 ├── Http/Controllers/
-│   ├── ContactController.php
 │   └── Controller.php
 └── Providers/
 
@@ -446,42 +404,31 @@ Sur un serveur de production :
 composer install --no-dev --optimize-autoloader
 npm ci
 npm run build
-php artisan migrate --force
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 ```
 
-Configurer ensuite :
+Configurer ensuite `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL` avec l'URL HTTPS Render et `APP_KEY` avec une clé Laravel valide. Les sessions, le cache et les files utilisent des pilotes sans base de données. Le formulaire d'e-mail a été retiré : les visiteurs utilisent WhatsApp, le téléphone, l'adresse e-mail affichée ou Facebook.
 
-- `APP_ENV=production` ;
-- `APP_DEBUG=false` ;
-- une valeur `APP_URL` HTTPS ;
-- les identifiants SMTP Gmail ou un service e-mail de production ;
-- les permissions d'écriture sur `storage/` et `bootstrap/cache/`.
-
-Ne jamais inclure `.env`, les mots de passe SMTP ou les clés privées dans le dépôt Git.
+Ne jamais inclure `.env` ou des clés privées dans le dépôt Git.
 
 ### Déployer sur Render
 
 Le dépôt contient les fichiers nécessaires à un déploiement Render :
 
-- `Dockerfile` : image PHP 8.4 avec Apache, PostgreSQL et les assets Vite compilés ;
-- `docker/start.sh` : adapte Apache au port Render, exécute les migrations et optimise Laravel ;
-- `render.yaml` : crée le service web et une base PostgreSQL Render ;
+- `Dockerfile` : image PHP 8.4 avec Apache et les assets Vite compilés ;
+- `docker/start.sh` : adapte Apache au port Render et optimise Laravel ;
+- `render.yaml` : configure uniquement le service web gratuit, sans base de données ;
 - `.dockerignore` : exclut les secrets, dépendances locales et fichiers temporaires.
 
 1. Pousser le projet sur un dépôt GitHub.
 2. Dans Render, choisir **New > Blueprint** et sélectionner le dépôt.
-3. Render détectera `render.yaml` et créera le service web ainsi que PostgreSQL.
-4. Dans les variables du service, renseigner :
-   - `APP_URL` avec l'URL HTTPS Render du site ;
-   - `MAIL_USERNAME` avec l'adresse Gmail d'envoi ;
-   - `MAIL_PASSWORD` avec un mot de passe d'application Google ;
-   - `MAIL_FROM_ADDRESS` et `CONTACT_EMAIL` avec l'adresse de réception.
-5. Lancer le déploiement. Le script de démarrage exécute automatiquement `php artisan migrate --force` puis `php artisan optimize`.
+3. Render détectera `render.yaml` et créera uniquement le service web.
+4. Renseigner `APP_URL` avec l'URL HTTPS Render du site.
+5. Lancer le déploiement. Le script de démarrage exécute uniquement `php artisan optimize`.
 
-`APP_KEY` est générée par Render. Ne pas copier le fichier `.env` local dans Render et ne jamais utiliser le mot de passe Gmail principal. Pour un environnement payant, remplacer `plan: free` dans `render.yaml` par le plan Render souhaité avant de créer les services.
+`APP_KEY` est générée par Render. Aucun port SMTP, aucune base PostgreSQL et aucune variable Gmail ne sont nécessaires.
 
 #### Tester l'image localement
 
@@ -494,40 +441,13 @@ docker run --rm -p 10000:10000 \
   -e APP_ENV=production \
   -e APP_DEBUG=false \
   -e APP_URL=http://localhost:10000 \
-  -e DB_CONNECTION=sqlite \
-  -e DB_DATABASE=/var/www/html/database/database.sqlite \
   ferme-bassoum \
-  sh -c 'touch /var/www/html/database/database.sqlite && chown www-data:www-data /var/www/html/database/database.sqlite && exec /usr/local/bin/render-start'
+  /usr/local/bin/render-start
 ```
 
-Puis ouvrir <http://localhost:10000>. En production Render, `DB_URL` est injectée automatiquement depuis PostgreSQL.
+Puis ouvrir <http://localhost:10000>.
 
 ## Dépannage
-
-### `The environment file is invalid`
-
-Une valeur `.env` contient probablement un espace non protégé. Entourer la valeur de guillemets :
-
-```env
-MAIL_PASSWORD="xxxx xxxx xxxx xxxx"
-```
-
-Puis exécuter :
-
-```bash
-php artisan optimize:clear
-```
-
-### Le schéma `tls` n'est pas pris en charge
-
-Avec Gmail sur le port `587`, utiliser :
-
-```env
-MAIL_SCHEME=smtp
-MAIL_PORT=587
-```
-
-Ne pas utiliser `MAIL_SCHEME=tls`.
 
 ### Les styles Tailwind ne s'affichent pas
 
@@ -544,17 +464,6 @@ npm run dev
 ```
 
 Si le site est ouvert via Ngrok, consulter la section [Accès depuis un téléphone avec Ngrok](#accès-depuis-un-téléphone-avec-ngrok).
-
-### Les e-mails ne sont pas reçus
-
-Vérifier :
-
-1. que `MAIL_MAILER=smtp` est configuré ;
-2. que `MAIL_USERNAME` correspond à l'adresse Gmail ;
-3. que `MAIL_PASSWORD` est un mot de passe d'application Google ;
-4. que `MAIL_SCHEME=smtp` et `MAIL_PORT=587` sont utilisés ;
-5. que le cache a été nettoyé avec `php artisan optimize:clear` ;
-6. les logs dans `storage/logs/laravel.log`.
 
 ## Licence
 

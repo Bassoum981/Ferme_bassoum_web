@@ -18,7 +18,7 @@
                     <a href="{{ route('animaux') }}">Nos animaux</a>
                     <a class="active" href="{{ route('contact') }}">Contact</a>
                 </nav>
-                <a class="button button-dark nav-contact" href="#formulaire"><span class="phone-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7.2 3.5 9.8 3a1.5 1.5 0 0 1 1.7 1l1 3a1.5 1.5 0 0 1-.5 1.6l-1.5 1.2a12.5 12.5 0 0 0 4.7 4.7l1.2-1.5a1.5 1.5 0 0 1 1.6-.5l3 1a1.5 1.5 0 0 1 1 1.7l-.5 2.6a1.8 1.8 0 0 1-2 1.4A16.5 16.5 0 0 1 4.8 5.5a1.8 1.8 0 0 1 1.4-2Z"/></svg></span> Écrire un message</a>
+                <a class="button button-dark nav-contact" href="https://wa.me/22394184125" target="_blank" rel="noopener noreferrer"><span class="phone-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7.2 3.5 9.8 3a1.5 1.5 0 0 1 1.7 1l1 3a1.5 1.5 0 0 1-.5 1.6l-1.5 1.2a12.5 12.5 0 0 0 4.7 4.7l1.2-1.5a1.5 1.5 0 0 1 1.6-.5l3 1a1.5 1.5 0 0 1 1 1.7l-.5 2.6a1.8 1.8 0 0 1-2 1.4A16.5 16.5 0 0 1 4.8 5.5a1.8 1.8 0 0 1 1.4-2Z"/></svg></span> Nous écrire sur WhatsApp</a>
                 <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
                 <div class="mobile-nav" aria-label="Navigation mobile">
                     <a href="{{ url('/') }}">Accueil</a>
@@ -54,29 +54,6 @@
                         <a class="facebook-button" href="https://www.facebook.com/share/1De6Fwm6js/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3c-3.3 0-5 1.9-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.7.3-1 1-1Z"/></svg> Suivez-nous sur Facebook</a>
                     </div>
 
-                    <div id="formulaire" class="contact-form-card">
-                        <h2>Envoyez-nous un message</h2>
-                        @if (session('success'))
-                            <div class="form-success">{{ session('success') }}</div>
-                        @endif
-                        @if ($errors->any())
-                            <div class="form-errors"><strong>Veuillez corriger les champs suivants :</strong><ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>
-                        @endif
-                        <form method="POST" action="{{ route('contact.store') }}">
-                            @csrf
-                            <label for="name">Nom complet <span>*</span></label>
-                            <input id="name" name="name" type="text" value="{{ old('name') }}" required>
-                            <label for="email">Adresse e-mail <span>*</span></label>
-                            <input id="email" name="email" type="email" value="{{ old('email') }}" required>
-                            <label for="phone">Téléphone</label>
-                            <input id="phone" name="phone" type="tel" value="{{ old('phone') }}">
-                            <label for="subject">Objet <span>*</span></label>
-                            <input id="subject" name="subject" type="text" value="{{ old('subject') }}" required>
-                            <label for="message">Votre message <span>*</span></label>
-                            <textarea id="message" name="message" rows="5" required>{{ old('message') }}</textarea>
-                            <button class="button button-dark" type="submit">Envoyer le message <span>→</span></button>
-                        </form>
-                    </div>
                 </div>
             </section>
         </main>

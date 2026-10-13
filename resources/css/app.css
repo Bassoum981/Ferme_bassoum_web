@@ -141,6 +141,7 @@ h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; }
 .contact-hero { background-position: center 58%; }
 .contact-main { padding: 80px 0; background: var(--cream); }
 .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 90px; align-items: start; }
+.contact-grid:has(> :only-child) { grid-template-columns: minmax(0, 760px); }
 .contact-details h2 { font-size: clamp(32px, 4vw, 49px); line-height: 1.08; margin: 0 0 17px; }
 .contact-details > p:not(.section-kicker) { max-width: 480px; line-height: 1.7; margin: 0 0 28px; }
 .contact-items { display: grid; gap: 19px; margin-bottom: 29px; }
