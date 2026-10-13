@@ -3,6 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="{{ asset('images/logo-ferme.png') }}">
+        <link rel="apple-touch-icon" href="{{ asset('images/logo-ferme.png') }}">
         <meta name="description" content="Contactez la Ferme Bassoum à Bamako.">
         <title>Contact | Ferme Bassoum</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
