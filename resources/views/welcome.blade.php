@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="{{ asset('images/logo-ferme.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
         <link rel="apple-touch-icon" href="{{ asset('images/logo-ferme.png') }}">
         <meta name="description" content="Ferme Bassoum — élevage responsable et produits fermiers de qualité.">
         <title>Ferme Bassoum | Naturellement bon</title>
@@ -136,6 +136,7 @@
                 <a class="footer-contact-line" href="{{ route('contact') }}"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7.2 3.5 9.8 3a1.5 1.5 0 0 1 1.7 1l1 3a1.5 1.5 0 0 1-.5 1.6l-1.5 1.2a12.5 12.5 0 0 0 4.7 4.7l1.2-1.5a1.5 1.5 0 0 1 1.6-.5l3 1a1.5 1.5 0 0 1 1 1.7l-.5 2.6a1.8 1.8 0 0 1-2 1.4A16.5 16.5 0 0 1 4.8 5.5a1.8 1.8 0 0 1 1.4-2Z"/></svg></span> Nous contacter</a>
                 <a class="footer-contact-line" href="https://www.facebook.com/share/1De6Fwm6js/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3c-3.3 0-5 1.9-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.7.3-1 1-1Z"/></svg></span> Facebook</a>
                 <a href="mailto:ibrahimbassoum981@gmail.com">ibrahimbassoum981@gmail.com</a>
+                <a class="footer-credit" href="{{ route('mentions-legales') }}">Créé par Ibrahim Bassoum</a>
             </div>
         </footer>
     </body>

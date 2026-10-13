@@ -9,3 +9,4 @@ Route::view('/notre-ferme', 'ferme')->name('ferme');
 Route::view('/nos-produits', 'produits')->name('produits');
 Route::view('/nos-animaux', 'animaux')->name('animaux');
 Route::view('/contact', 'contact')->name('contact');
+Route::view('/mentions-legales', 'mentions-legales')->name('mentions-legales');
