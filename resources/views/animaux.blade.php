@@ -52,7 +52,7 @@
             <section class="animal-showcase">
                 <div class="page-shell animal-cards">
                     <article class="animal-card animal-card-featured">
-                        <img src="{{ asset('images/oeufs-caille.webp') }}" alt="Cailles de la Ferme Bassoum">
+                        <img src="{{ asset('images/caille.jpeg') }}" alt="Cailles de la Ferme Bassoum">
                         <div><span class="product-label">Élevage avicole</span><h2>Cailles</h2><p>Notre spécialité : des cailles élevées avec une alimentation suivie et des conditions sanitaires maîtrisées, de l'incubation jusqu'à la maturité.</p></div>
                     </article>
                     <article class="animal-card">

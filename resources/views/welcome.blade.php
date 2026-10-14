@@ -118,7 +118,7 @@
                         <div id="animaux" class="feature-column animals-column">
                             <h2>Innovation & rigueur</h2>
                             <div class="animal-list">
-                                <figure><img src="{{ asset('images/oeufs-caille.webp') }}" alt="Cailles"><figcaption>Cailles</figcaption></figure>
+                                <figure><img src="{{ asset('images/caille-2.jpeg') }}" alt="Cailles"><figcaption>Cailles</figcaption></figure>
                                 <figure><img src="{{ asset('images/mouton.png') }}" alt="Moutons"><figcaption>Moutons</figcaption></figure>
                                 <figure><img src="{{ asset('images/bovins.jpg') }}" alt="Bovins"><figcaption>Bovins</figcaption></figure>
                             </div>
